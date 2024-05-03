@@ -52,23 +52,40 @@ public class Player extends GameObject {
             GameObject temp = handler.getGameObjects().get(i);
 
             if (temp.getId() == ObjectID.Block || temp.getId() == ObjectID.Pipe) {
-                if (getBounds().intersects(temp.getBounds())) {
+                if (getBounds().intersects(temp.getBounds())) { //bas
                     setY(temp.getY() - getHeight());
                     setVelY(0);
                     jumped = false;
                 }
-                if (getBoundsTop().intersects(temp.getBounds())) {
+                if (getBoundsTop().intersects(temp.getBounds())) { //haut
                     setY(temp.getY() + temp.getHeight());
                     setVelY(0);
                 }
-                if (getBoundsRight().intersects(temp.getBounds())) {
+                if (getBoundsRight().intersects(temp.getBounds())) { //droite
                     setX(temp.getX() - getWidth());
                 }
 
-                if (getBoundsLeft().intersects(temp.getBounds())) {
+                if (getBoundsLeft().intersects(temp.getBounds())) { //gauche
                     setX(temp.getX() + temp.getWidth());
                 }
+
+            } else if (temp.getId() == ObjectID.Enemy) {
+                if (getBounds().intersects(temp.getBounds())) {
+                    temp.kill();
+                }
+                if (getBoundsTop().intersects(temp.getBounds())) {
+                    setY(temp.getY() + temp.getHeight());
+                    temp.kill();
+                }
+                if (getBoundsRight().intersects(temp.getBounds())) {
+                    health--;
+                }
+
+                if (getBoundsLeft().intersects(temp.getBounds())) {
+                    health--;
+                }
             }
+
         }
     }
 

@@ -3,14 +3,12 @@ package com.github.aaron;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-import com.github.aaron.game.object.Block;
-import com.github.aaron.game.object.Boss;
-import com.github.aaron.game.object.Player;
 import com.github.aaron.game.gfx.textures.Texture;
 import com.github.aaron.game.object.util.Handler;
 import com.github.aaron.game.object.util.KeyInput;
 import com.github.aaron.game.gfx.Camera;
 import com.github.aaron.game.gfx.Window;
+import com.github.aaron.game.util.LevelHandler;
 
 public class Game extends Canvas implements Runnable {
 
@@ -41,15 +39,11 @@ public class Game extends Canvas implements Runnable {
         instance = this;
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
+        LevelHandler levelHandler = new LevelHandler(handler);
+        levelHandler.startRendering();
 
-        handler.setPlayer(new Player(32, 32, 2, handler));
-        handler.setBoss(new Boss(64, 64, 2, handler));
-        for (int i = 0; i < 20; i ++) {
-            handler.addObj(new Block(i*32, 32*10, 32, 32, 1));
-        }
-        for (int i = 0; i < 30; i++) {
-            handler.addObj(new Block(i*32, 32*15, 32, 32, 1));
-        }
+
+
         cam = new Camera(0, SCREEN_OFFSET);
         new Window(WINDOW_WIDTH, WINDOWS_HEIGHT, NAME, this);
 
@@ -100,7 +94,6 @@ public class Game extends Canvas implements Runnable {
 
             if (System.currentTimeMillis() - timer > MILLIS_PER_SEC) {
                 timer += MILLIS_PER_SEC;
-                System.out.println("FPS: " + frames + " TPS: " + updates);
                 updates = 0;
                 frames = 0;
             }
@@ -126,7 +119,6 @@ public class Game extends Canvas implements Runnable {
 
         g.setColor(Color.black);
         g.fillRect(0, 0, WINDOW_WIDTH, WINDOWS_HEIGHT);
-        //g.drawImage(getTex().getBackground(), WINDOW_WIDTH, WINDOWS_HEIGHT, WINDOW_WIDTH, WINDOWS_HEIGHT, null);
 
         g2d.translate(cam.getX(), cam.getY());
         handler.render(g);

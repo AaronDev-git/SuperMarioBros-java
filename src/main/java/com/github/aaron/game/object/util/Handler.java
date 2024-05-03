@@ -12,7 +12,6 @@ public class Handler {
 
     private final List<GameObject> gameObjects;
     private Player player;
-    private Boss boss;
 
     public Handler() {
         gameObjects = new LinkedList<>();
@@ -51,32 +50,16 @@ public class Handler {
         this.player = player;
     }
 
-    public void setBoss(Boss boss) {
-        if (this.boss != null) {
-            return;
-        }
 
-        addObj(boss);
-        this.boss = boss;
-    }
-
-
-
-
-    public int removePlayer(Player player) {
+    public void removePlayer(Player player) {
         if (player == null) {
-            return -1;
+            return;
         }
         removeObj(player);
         this.player = null;
-        return 0;
     }
 
     public Player getPlayer() {
         return player;
-    }
-
-    public Boss getBoss() {
-        return boss;
     }
 }

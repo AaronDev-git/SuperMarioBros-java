@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Boss extends GameObject{
-    private static final float WIDTH = 16;
+    private static final float WIDTH = 32;
     private static final float HEIGHT = 32;
     private static int health = 4;
     private boolean jumped = false;

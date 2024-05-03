@@ -6,8 +6,10 @@ import com.github.aaron.game.object.util.ObjectID;
 import java.awt.*;
 
 public class Block extends GameObject{
-    public Block(float x, float y, float width, float height, int scale) {
+    int type;
+    public Block(float x, float y, float width, float height, int scale, int type) {
         super(x, y, ObjectID.Block, width, height, scale);
+        this.type = type;
     }
 
     @Override
@@ -17,7 +19,7 @@ public class Block extends GameObject{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Game.getTex().getBlock(), (int) getX(), (int) getY(), (int) getWidth(), (int) getHeight(), null);
+        g.drawImage(Game.getTex().getBlocks()[type], (int) getX(), (int) getY(), (int) getWidth(), (int) getHeight(), null);
     }
 
     @Override

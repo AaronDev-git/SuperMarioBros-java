@@ -4,16 +4,21 @@ import java.awt.image.BufferedImage;
 
 public class Texture {
 
-    public BufferedImage mario_l, mario_s, boss;
-    private final BufferedImage block;
+    private final BufferedImage mario_l;
+    private final BufferedImage mario_s;
+    private final BufferedImage boss;
+    private BufferedImage background;
+    private final BufferedImage[] block;
 
     public Texture() {
         BufferedImageLoader loader = new BufferedImageLoader();
 
-        block = loader.loadImage("/block.png");
-        mario_l = loader.loadImage("/marioL.png");
-        mario_s = loader.loadImage("/marioS.png");
-        boss = loader.loadImage("/goumba.png");
+        block = new BufferedImage[2];
+        mario_l = loader.loadImage("/sprites/marioL.png");
+        mario_s = loader.loadImage("/sprites/marioS.png");
+        boss = loader.loadImage("/sprites/goumba.png");
+        block[0] = loader.loadImage("/blocks/block.png");
+        block[1] = loader.loadImage("/blocks/block_wall.png");
 
     }
 
@@ -24,7 +29,7 @@ public class Texture {
     public BufferedImage getMario_s() {
         return mario_s;
     }
-    public BufferedImage getBlock() {
+    public BufferedImage[] getBlocks() {
         return block;
     }
 
@@ -32,7 +37,9 @@ public class Texture {
         return boss;
     }
 
-    public void setBoss(BufferedImage boss) {
-        this.boss = boss;
+    public BufferedImage getBackground() {
+        return background;
     }
+
+
 }

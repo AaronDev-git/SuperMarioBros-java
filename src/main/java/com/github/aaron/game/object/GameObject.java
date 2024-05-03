@@ -28,6 +28,10 @@ public abstract class GameObject {
 
     }
 
+    public void kill() {
+
+    }
+
     public void setX(float x) {
         this.x = x;
     }
