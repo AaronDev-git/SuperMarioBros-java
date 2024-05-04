@@ -25,7 +25,6 @@ public abstract class GameObject {
 
     public void applyGravity() {
         velY += 0.5f;
-
     }
 
     public void kill() {

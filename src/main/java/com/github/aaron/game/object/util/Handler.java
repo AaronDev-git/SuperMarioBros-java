@@ -1,6 +1,5 @@
 package com.github.aaron.game.object.util;
 
-import com.github.aaron.game.object.Boss;
 import com.github.aaron.game.object.GameObject;
 import com.github.aaron.game.object.Player;
 

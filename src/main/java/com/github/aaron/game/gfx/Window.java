@@ -7,12 +7,9 @@ import java.awt.*;
 
 public class Window {
 
-    private final JFrame frame;
-    private final Dimension size;
-
     public Window(int width, int height, String title, Game game) {
-        size = new Dimension(width, height);
-        frame = new JFrame(title);
+        Dimension size = new Dimension(width, height);
+        JFrame frame = new JFrame(title);
 
         frame.setPreferredSize(size);
         frame.setMaximumSize(size);
@@ -23,5 +20,10 @@ public class Window {
         frame.setLocationRelativeTo(null);
         frame.add(game);
         frame.setVisible(true);
+
+    }
+
+    public void render(Graphics g) {
+        g.drawImage(Game.getTex().getBackground(), 0, 0, null);
     }
 }

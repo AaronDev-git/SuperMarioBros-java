@@ -12,6 +12,7 @@ public class Player extends GameObject {
     private static final float WIDTH = 16;
     private static final float HEIGHT = 32;
     private static int health = 2;
+    private boolean invincible = false;
     private boolean jumped = false;
     private final BufferedImage spriteL;
     private final BufferedImage spriteS;
@@ -70,20 +71,37 @@ public class Player extends GameObject {
                 }
 
             } else if (temp.getId() == ObjectID.Enemy) {
+                if (isInvincible()) return;
+                Enemy enemy = (Enemy) temp;
                 if (getBounds().intersects(temp.getBounds())) {
-                    temp.kill();
+                    enemy.setHealth(enemy.getHealth() - 1);
                 }
                 if (getBoundsTop().intersects(temp.getBounds())) {
                     setY(temp.getY() + temp.getHeight());
-                    temp.kill();
+                    enemy.setHealth(enemy.getHealth() - 1);
                 }
-                if (getBoundsRight().intersects(temp.getBounds())) {
-                    health--;
+                if (health >= 2) {
+                    if (getBoundsRight().intersects(temp.getBounds())) {
+                        health--;
+                        invincible = true;
+                    }
+
+                    if (getBoundsLeft().intersects(temp.getBounds())) {
+                        health--;
+                        invincible = true;
+                    }
+                } else {
+                    if (getBoundsRight().intersects(temp.getBounds())) {
+                        health = 2;
+                        handler.removePlayer(this);
+                    }
+
+                    if (getBoundsLeft().intersects(temp.getBounds())) {
+                        health = 2;
+                        handler.removePlayer(this);
+                    }
                 }
 
-                if (getBoundsLeft().intersects(temp.getBounds())) {
-                    health--;
-                }
             }
 
         }
@@ -142,5 +160,9 @@ public class Player extends GameObject {
 
     public static void setHealth(int health) {
         Player.health = health;
+    }
+
+    public boolean isInvincible() {
+        return invincible;
     }
 }

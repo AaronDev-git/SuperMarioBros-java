@@ -32,6 +32,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private Handler handler;
     private Camera cam;
+    private Window window;
     private static final Texture tex = new Texture();;
 
 
@@ -42,10 +43,8 @@ public class Game extends Canvas implements Runnable {
         LevelHandler levelHandler = new LevelHandler(handler);
         levelHandler.startRendering();
 
-
-
         cam = new Camera(0, SCREEN_OFFSET);
-        new Window(WINDOW_WIDTH, WINDOWS_HEIGHT, NAME, this);
+        window = new Window(WINDOW_WIDTH, WINDOWS_HEIGHT, NAME, this);
 
         start();
     }
@@ -117,8 +116,8 @@ public class Game extends Canvas implements Runnable {
         Graphics g = buf.getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;
 
-        g.setColor(Color.black);
         g.fillRect(0, 0, WINDOW_WIDTH, WINDOWS_HEIGHT);
+        window.render(g);
 
         g2d.translate(cam.getX(), cam.getY());
         handler.render(g);

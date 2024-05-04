@@ -7,17 +7,16 @@ import com.github.aaron.game.object.util.ObjectID;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Boss extends GameObject{
+public class Enemy extends GameObject{
     private static final float WIDTH = 32;
     private static final float HEIGHT = 32;
-    private static int health = 4;
-    private boolean jumped = false;
+    private int health = 2;
     private final BufferedImage sprite;
 
     private final Handler handler;
 
-    public Boss(float x, float y, int scale, Handler handler) {
-        super(x, y, ObjectID.Player, WIDTH, HEIGHT, scale);
+    public Enemy(float x, float y, int scale, Handler handler) {
+        super(x, y, ObjectID.Enemy, WIDTH, HEIGHT, scale);
         this.handler = handler;
         sprite = Game.getTex().getBoss();
     }
@@ -28,6 +27,9 @@ public class Boss extends GameObject{
         setY(getVelY() + getY());
         applyGravity();
         collision();
+        if (health == 0) {
+            handler.removeObj(this);
+        }
     }
 
     private void runAnimation(Graphics g, String path) {
@@ -47,7 +49,7 @@ public class Boss extends GameObject{
                 if (getBounds().intersects(temp.getBounds())) {
                     setY(temp.getY() - getHeight());
                     setVelY(0);
-                    jumped = false;
+
                 }
                 if (getBoundsTop().intersects(temp.getBounds())) {
                     setY(temp.getY() + temp.getHeight());
@@ -103,19 +105,12 @@ public class Boss extends GameObject{
         g2d.draw(getBoundsTop());
     }
 
-    public boolean hasJumped() {
-        return jumped;
-    }
-
-    public void setJumped(boolean jumped) {
-        this.jumped = jumped;
-    }
-
-    public static int getHealth() {
+    public int getHealth() {
         return health;
     }
 
-    public static void setHealth(int health) {
-        Boss.health = health;
+    public void setHealth(int health) {
+        this.health = health;
     }
+
 }
